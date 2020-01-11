@@ -1,14 +1,19 @@
-import React, { Component } from 'react'
-import { Text, StyleSheet, View } from 'react-native'
+import React, {Component} from 'react';
+import {Body, Header, Title} from 'native-base';
 
-export default class SignIn extends Component {
-    render() {
-        return (
-            <View>
-                <Text> SignIn txt </Text>
-            </View>
-        )
-    }
+import SigninForm from './SigninForm';
+
+export default class Signin extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Header>
+          <Body>
+            <Title>signin</Title>
+          </Body>
+        </Header>
+        <SigninForm />
+      </React.Fragment>
+    );
+  }
 }
-
-const styles = StyleSheet.create({})

@@ -2,24 +2,25 @@ import React, {Component} from 'react';
 
 import {Button, Content, Input, Item, Spinner, Text} from 'native-base';
 import {Formik} from 'formik';
-
-import {API_BASE} from '../../constants.js'
-import axios from 'axios'
+import { API_BASE } from '../../constants'; 
 import validations from './validations';
+import axios from 'axios'
+import { inject } from 'mobx-react';
 
-export default class SignupForm extends Component {
+@inject('AuthStore')
+export default class SigninForm extends Component {
   _handleSubmit = async ({username,password}, bag) => {
     try {
-      
-      const {data} = await axios.post(`${API_BASE}/register`,{username,password});
-      
+      const{data}=await axios.post(`${API_BASE}/authenticate`,{username,password});
       bag.setSubmitting(false);
-
-      if(data.hasOwnProperty('errors')){
-        bag.setErrors(data.errors);
+      if(!data.status){
+        alert(data.message);
         return false;
       }
-      this.props.navigation.navigate('SignIn');
+
+       this.props.Authstore.saveToken(data.token); 
+
+     
     } catch (e) {
       bag.setSubmitting(false);
       bag.setErrors(e);
@@ -29,7 +30,10 @@ export default class SignupForm extends Component {
   render() {
     return (
       <Formik
-        initialValues={{username: '', password: '', passwordConfirm: ''}}
+        initialValues={{
+          username: '', 
+          password: '',
+        }}
         onSubmit={this._handleSubmit}
         validationSchema={validations}>
         {({
@@ -63,8 +67,7 @@ export default class SignupForm extends Component {
             <Item error={errors.password && touched.password}>
               <Input
                 ref={ref => (this.passwordRef = ref)}
-                returnKeyType={'next'}
-                onSubmitEditing={() => this.passwordConfirmRef._root.focus()}
+                returnKeyType={'go'}                
                 onChangeText={handleChange('password')}
                 value={values.password}
                 placeholder="password"
@@ -75,23 +78,6 @@ export default class SignupForm extends Component {
 
               {errors.password && touched.password && (
                 <Text style={{color: 'red'}}>{errors.password}</Text>
-              )}
-            </Item>
-
-            <Item error={errors.passwordConfirm && touched.passwordConfirm}>
-              <Input
-                ref={ref => (this.passwordConfirmRef = ref)}
-                returnKeyType={'go'}
-                onChangeText={handleChange('passwordConfirm')}
-                value={values.passwordConfirm}
-                placeholder="password confirmation"
-                onBlur={() => setFieldTouched('passwordConfirm')}
-                autoCapitalize={'none'}
-                secureTextEntry={true}
-              />
-
-              {errors.passwordConfirm && touched.passwordConfirm && (
-                <Text style={{color: 'red'}}>{errors.passwordConfirm}</Text>
               )}
             </Item>
 
