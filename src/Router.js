@@ -1,14 +1,21 @@
 import React from 'react';
-import {createAppContainer, createSwitchNavigator} from 'react-navigation';
-import {createStackNavigator} from 'react-navigation-stack';
-import {createBottomTabNavigator} from 'react-navigation-tabs';
-import Icon from 'react-native-vector-icons/FontAwesome';
+
+import {
+	createBottomTabNavigator,
+	createAppContainer,
+	createSwitchNavigator,
+	createStackNavigator
+} from "react-navigation";
+
+// native base
+import { Icon } from 'native-base';
 
 // auth loading
 import AuthLoading from './screens/AuthLoading';
+
 // app stack
 import Home from './screens/Home';
-//import Detail from './screens/Detail';
+import Detail from './screens/Detail';
 
 // auth stack
 import SignIn from './screens/SignIn';
@@ -18,15 +25,15 @@ const AppStack = createStackNavigator({
 	Home: {
 		screen: Home,
 		navigationOptions: {
-            title: 'Home', 
+			title: 'Home',
 		}
 	},
-	// Detail: {
-	// 	screen: Detail,
-	// 	navigationOptions: {
-	// 		title: 'Detail',
-	// 	}
-	// }
+	Detail: {
+		screen: Detail,
+		navigationOptions: {
+			title: 'Detail',
+		}
+	}
 });
 const AuthStack = createBottomTabNavigator(
 	{
@@ -34,14 +41,14 @@ const AuthStack = createBottomTabNavigator(
 			screen: SignIn,
 			navigationOptions: {
 				title: 'Sign In',
-				tabBarIcon: ({ tintColor }) => <Icon name="sign-in" style={{ color: tintColor }} />
+				tabBarIcon: ({ tintColor }) => <Icon name="log-in" style={{ color: tintColor }} />
 			}
 		},
 		SignUp: {
 			screen: SignUp,
-			navigationOptions: {
+			navigationOptions: {
 				title: 'Sign Up',
-				tabBarIcon: ({ tintColor }) => <Icon name="user-plus" style={{ color: tintColor }} />
+				tabBarIcon: ({ tintColor }) => <Icon name="person-add" style={{ color: tintColor }} />
 			}
 		}
 	},
