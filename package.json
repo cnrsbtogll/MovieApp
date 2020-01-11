@@ -10,14 +10,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/async-storage": "react-native-community/async-storage",
-    "@react-native-community/cli": "^3.0.4",
-    "@react-native-community/masked-view": "^0.1.5",
-    "async-storage": "^0.1.0",
+    "@react-native-community/async-storage": "^1.3.3",
     "axios": "^0.19.1",
     "formik": "^2.1.1",
-    "mobx": "^5.15.1",
-    "mobx-react": "^6.1.4",
+    "mobx": "^5.9.4",
+    "mobx-react": "^5.4.3",
     "native-base": "^2.13.8",
     "react": "16.9.0",
     "react-native": "0.61.5",
